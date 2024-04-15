@@ -1,44 +1,50 @@
 import wikipediaapi
 from urllib.parse import urlparse
+import json
 
-wiki_wiki = wikipediaapi.Wikipedia(
+wikiwiki = wikipediaapi.Wikipedia(
     user_agent='MyProjectName (merlin@example.com)',
-        language='en',
-        extract_format=wikipediaapi.ExtractFormat.WIKI
+    language='en',
+    extract_format=wikipediaapi.ExtractFormat.WIKI
 )
-page_py = wiki_wiki.page('Python_(programming_language)')
+
 
 def getlinks(page):
     links = page.links
-    for title in sorted(links.keys()):
-        print("%s: %s" % (title, links[title]))
+    return [link for link in links.keys()]
 
-def urltopagetitle(url):
-    parsed_url = urlparse(url)
-    path = parsed_url.path
-    title = path.split('/')[-1]
+
+def urltotitle(url):
+    title = url.split('/')[-1]
     return title
 
-def iteration(prevresult)
-    for i in prevresult:
-        temp[starttext][i] = urltopagetitle(getlinks(i))
 
+def fetch_recursive(starttext, depth):
+    linkdict = {}
+    visitedlinks = set()
 
+    def recursive_traverse(text, currentdepth):
+        if currentdepth == depth:
+            return
+        page = wikiwiki.page(text)
 
-linkdict = {}
+        links = getlinks(page)
+        linkdict[text] = links
+        if page.exists():
+            for link in links:
+                if link not in visitedlinks:
+                    visitedlinks.add(link)
+                    recursive_traverse(link, currentdepth + 1)
+
+    recursive_traverse(starttext, 0)
+    return linkdict
+
 
 starttext = "Cristiano Ronaldo"
-temp = {starttext:[]}
+depth = 2
+finaldict = fetch_recursive(starttext, depth)
 
-firstresult = urltopagetitle(getlinks(starttext))
+with open(starttext+ str(depth) +'_output.json', 'w') as json_file:
+    json.dump(finaldict, json_file, indent=4)
 
-path =
-for i in range(0,4):
-    for j in temp.keys():
-
-        if page.exists():
-            for j in
-        else:
-            pass
-    temp =
-
+print("Data saved")

@@ -1,3 +1,7 @@
-1. Used Wikipedia API
-2. Using a vairbale dictionary path to store links
-3. Using a recursive function
+1. Used Wikipedia API [DONE]
+2. Using a vairbale dictionary path to store links [DONE]
+3. Using a recursive function [DONE]
+
+2.1. Making the Graph
+2.2.
+This program is way too Slow
