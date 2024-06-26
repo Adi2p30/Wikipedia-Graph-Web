@@ -1,4 +1,4 @@
-Welcome to the Wikipedia Web Graph project! This project is all about exploring the relationships between Wikipedia articles using graph theory. By looking at how different articles are connected, we can gain a better understanding of how topics are related and navigate the vast network of information on Wikipedia.
+Welcome to the Wikipedia Graph Web project! This project is all about exploring the relationships between Wikipedia articles using graph theory. By looking at how different articles are connected, we can gain a better understanding of how topics are related and navigate the vast network of information on Wikipedia.
 
 ## Understanding the Degree of Relation:
 Just to give you a quick overview, in graph theory the degree of a node is basically the number of edges connected to that node.
