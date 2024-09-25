@@ -3,7 +3,7 @@ from urllib.parse import urlparse
 import json
 
 wikiwiki = wikipediaapi.Wikipedia(
-    user_agent='MyProjectName (merlin@example.com)',
+    user_agent='Aditya Pachpande',
     language='en',
     extract_format=wikipediaapi.ExtractFormat.WIKI
 )
