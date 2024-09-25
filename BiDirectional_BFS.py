@@ -10,14 +10,11 @@ wiki_wiki = wikipediaapi.Wikipedia(
     user_agent="Aditya Pachpande",
 )
 
-
 queue1 = queue.Queue()
 queue2 = queue.Queue()
 
-
 past1 = {}
 past2 = {}
-
 
 lock1 = threading.Lock()
 lock2 = threading.Lock()
@@ -125,7 +122,7 @@ def find_degrees_of_relation_bidirectional(
 
     if not page1.exists() or not page2.exists():
         print(f"One of the pages does not exist: {thing1}, {thing2}")
-        return -1, []
+        return
 
     queue1.put([thing1])
     past1[thing1] = 1
@@ -148,20 +145,19 @@ def find_degrees_of_relation_bidirectional(
     for thread in threads:
         thread.join()
 
-    return (result["degrees"], result["path"]) if result["found"] else (-1, [])
+    if result["found"]:
+        degrees = result["degrees"]
+        path = result["path"]
+        path.append(thing2)
 
+        print(
+            f"The degrees of relation between '{thing1}' and '{thing2}' is {degrees}. Path: {path}"
+        )
+        visualize_wikipedia_path(path)
+    else:
 
-thing1 = "Mac Pro"
-thing2 = "Puff pastry"
-degrees, path = find_degrees_of_relation_bidirectional(
-    thing1, thing2, max_links=2000, num_threads=40
-)
+        print(f"No relation found between '{thing1}' and '{thing2}'.")
 
-if degrees != -1:
-    path.append(thing2)
-    print(
-        f"The degrees of relation between '{thing1}' and '{thing2}' is {degrees}. Path: {path}"
-    )
-    visualize_wikipedia_path(path)
-else:
-    print(f"No relation found between '{thing1}' and '{thing2}'.")
+    # thing1 = "Mac Pro"
+    # thing2 = "Puff pastry"
+    # find_degrees_of_relation_bidirectional(thing1, thing2, max_links=2000, num_threads=40)
