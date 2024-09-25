@@ -1,4 +1,8 @@
-Welcome to the Wikipedia Web Graph project! This project aims to explore the relationships between Wikipedia articles using graph theory. By analyzing the connections between articles, we can gain insights into how topics are related and navigate the vast network of information present on Wikipedia.
+Welcome to the Wikipedia Graph Web project! This project is all about exploring the relationships between Wikipedia articles using graph theory. By looking at how different articles are connected, we can gain a better understanding of how topics are related and navigate the vast network of information on Wikipedia.
 
 ## Understanding the Degree of Relation:
-In graph theory, the degree of a node represents the number of edges connected to that node. In the context of the Wikipedia Web Graph, each Wikipedia article is a node, and the links between articles are the edges. Therefore, the degree of relation between two articles can be understood by examining the number of links that directly connect them.
+Just to give you a quick overview, in graph theory the degree of a node is basically the number of edges connected to that node.
+When it comes to Wikipedia, each article is a node, with the links between them acting as the edges. This helps us get a sense of how connected two articles are by looking at the number of links between them.
+
+
+Basically Im trying to find out the minimum degree of relation between 2 items on wikipedia.
