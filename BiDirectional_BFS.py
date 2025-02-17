@@ -3,12 +3,17 @@ import threading
 import queue
 import networkx as nx
 import matplotlib.pyplot as plt
+from Visualiser_Pro.main import network_visualise_link
+import webbrowser
+
 
 wiki_wiki = wikipediaapi.Wikipedia(
     language="en",
     extract_format=wikipediaapi.ExtractFormat.WIKI,
     user_agent="Aditya Pachpande",
 )
+
+all_paths = []
 
 queue1 = queue.Queue()
 queue2 = queue.Queue()
@@ -52,9 +57,9 @@ def BFS_root(result, max_links):
                         new_path = list(path)
                         new_path.append(link)
                         queue1.put(new_path)
+                        all_paths.append(new_path)  # Save the path
                 print(link)
         queue1.task_done()
-
 
 def BFS_dest(result, max_links):
     while not queue2.empty() and not connection_found.is_set():
@@ -80,9 +85,11 @@ def BFS_dest(result, max_links):
                         new_path = list(path)
                         new_path.append(link)
                         queue2.put(new_path)
+                        all_paths.append(new_path)  # Save the path
                 print(link)
 
         queue2.task_done()
+
 
 
 def visualize_wikipedia_path(path):
@@ -115,7 +122,7 @@ def visualize_wikipedia_path(path):
 
 
 def find_degrees_of_relation_bidirectional(
-    thing1, thing2, max_links=5000, num_threads=80
+    thing1, thing2, max_links=5000, num_threads=80, visualize=False, vistype="pyvis", auto_load = False
 ):
     page1 = wiki_wiki.page(thing1)
     page2 = wiki_wiki.page(thing2)
@@ -153,11 +160,17 @@ def find_degrees_of_relation_bidirectional(
         print(
             f"The degrees of relation between '{thing1}' and '{thing2}' is {degrees}. Path: {path}"
         )
-        visualize_wikipedia_path(path)
+        print(result)
+        if visualize:
+            if vistype == "pyvis":
+                network_visualise_link(all_paths, thing1, thing2, path, reduction_fraction=1)
+                if auto_load:
+                    webbrowser.open("graph.html")
+            else:
+                visualize_wikipedia_path(path)
     else:
-
         print(f"No relation found between '{thing1}' and '{thing2}'.")
 
-    # thing1 = "Mac Pro"
-    # thing2 = "Puff pastry"
-    # find_degrees_of_relation_bidirectional(thing1, thing2, max_links=2000, num_threads=40)
+thing1 = "Mac Pro"
+thing2 = "Puff pastry"
+find_degrees_of_relation_bidirectional(thing1, thing2, max_links=2000, num_threads=20, visualize=True, vistype="pyvis", auto_load = True)

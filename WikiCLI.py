@@ -197,6 +197,9 @@ def pageviews(page_title):
 
     click.echo(get_page_views(page_title))
 
+# @click.command()
+# @click.argument("Visualise")
+
 
 cli.add_command(summary)
 cli.add_command(links)
