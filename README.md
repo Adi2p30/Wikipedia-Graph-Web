@@ -1,8 +1,59 @@
-Welcome to the Wikipedia Graph Web project! This project is all about exploring the relationships between Wikipedia articles using graph theory. By looking at how different articles are connected, we can gain a better understanding of how topics are related and navigate the vast network of information on Wikipedia.
+# Wikipedia Graph Web
 
-## Understanding the Degree of Relation:
-Just to give you a quick overview, in graph theory the degree of a node is basically the number of edges connected to that node.
-When it comes to Wikipedia, each article is a node, with the links between them acting as the edges. This helps us get a sense of how connected two articles are by looking at the number of links between them.
+Finding the minimum degree of separation between any two Wikipedia articles using bidirectional BFS.
 
+## What is this?
 
-Basically Im trying to find out the minimum degree of relation between 2 items on wikipedia.
+This project implements a bidirectional breadth-first search algorithm to find the shortest path between two Wikipedia articles. Each article is treated as a node, with hyperlinks acting as edges in the graph.
+
+For research findings and results, see the `research/` folder.
+
+## Usage
+
+### Run the Bidirectional BFS
+
+```bash
+cd src
+python bidirectional_bfs.py
+```
+
+Edit the bottom of `src/bidirectional_bfs.py` to change the source and target articles:
+
+```python
+thing1 = "Mac Pro"
+thing2 = "Puff pastry"
+find_degrees_of_relation_bidirectional(
+    thing1, thing2,
+    max_links=1800,
+    num_threads=40,
+    visualize=True,
+    vistype="pyvis",
+    auto_load=True
+)
+```
+
+### Use the CLI
+
+```bash
+cd src
+python wiki_cli.py summary "Python (programming language)"
+python wiki_cli.py links "Machine learning" --max-links 20
+```
+
+## Project Structure
+
+```
+src/               # Main implementation
+├── bidirectional_bfs.py    # Core algorithm
+├── wiki_cli.py             # Command-line interface
+└── visualizer/             # Network visualization
+
+utils/             # Utility scripts
+archive/           # Previous versions
+research/          # Research data and findings
+cache/             # Generated visualizations
+```
+
+## How it works
+
+The algorithm uses bidirectional BFS starting from both articles simultaneously, meeting in the middle to find the shortest path. Results are visualized as an interactive network graph using PyVis.

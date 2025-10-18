@@ -29,7 +29,7 @@ def network_visualise_link(all_paths, source, destination, specific_path, reduct
 
     # Opacity
     for node in nodes:
-        opacity = min(1, 0.1 + 0.9 * (node_connections[node] / max(node_connections.values())))
+        opacity = min(0.8, 0.1 + 0.9 * (node_connections[node] / max(node_connections.values())))
         color = f'rgba(255, 0, 0, {opacity})' if node == source else f'rgba(0, 255, 0, {opacity})' if node == destination else f'rgba(255, 255, 255, {opacity})'
         if node in important_nodes or node in reduced_non_important_nodes:
             net.add_node(node, color=color)
@@ -39,18 +39,18 @@ def network_visualise_link(all_paths, source, destination, specific_path, reduct
             net.add_edge(path[i], path[i + 1])
 
     for i in range(len(specific_path) - 1):
-        net.add_edge(specific_path[i], specific_path[i + 1], color='rgba(0, 255, 255, 1)', width=3)
+        net.add_edge(specific_path[i], specific_path[i + 1], color='rgba(0, 255, 255, 0.8)', width=3)
 
     physics_options = """
        var options = {
            "physics": {
                "enabled": true,
                "barnesHut": {
-                   "gravitationalConstant": -7000,
+                   "gravitationalConstant": -6000,
                    "centralGravity": 0.3,
                    "springLength": 95,
                    "springConstant": 0.04,
-                   "damping": 0.1,
+                   "damping": 0.2,
                    "avoidOverlap": 0.2
                },
                "minVelocity": 0.75
@@ -59,4 +59,4 @@ def network_visualise_link(all_paths, source, destination, specific_path, reduct
        """
 
     net.set_options(physics_options)
-    net.show("graph.html")
+    net.show("../../cache/graph.html")

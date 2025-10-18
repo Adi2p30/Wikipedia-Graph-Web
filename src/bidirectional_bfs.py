@@ -3,7 +3,7 @@ import threading
 import queue
 import networkx as nx
 import matplotlib.pyplot as plt
-from Visualiser_Pro.main import network_visualise_link
+from visualizer.main import network_visualise_link
 import webbrowser
 
 
@@ -165,7 +165,7 @@ def find_degrees_of_relation_bidirectional(
             if vistype == "pyvis":
                 network_visualise_link(all_paths, thing1, thing2, path, reduction_fraction=1)
                 if auto_load:
-                    webbrowser.open("graph.html")
+                    webbrowser.open("../cache/graph.html")
             else:
                 visualize_wikipedia_path(path)
     else:
@@ -173,4 +173,4 @@ def find_degrees_of_relation_bidirectional(
 
 thing1 = "Mac Pro"
 thing2 = "Puff pastry"
-find_degrees_of_relation_bidirectional(thing1, thing2, max_links=2000, num_threads=20, visualize=True, vistype="pyvis", auto_load = True)
+find_degrees_of_relation_bidirectional(thing1, thing2, max_links=1800, num_threads=40, visualize=True, vistype="pyvis", auto_load = True)

@@ -1,6 +1,6 @@
 import click
 import wikipediaapi
-from BiDirectional_BFS import find_degrees_of_relation_bidirectional
+from bidirectional_bfs import find_degrees_of_relation_bidirectional
 
 wiki_wiki = wikipediaapi.Wikipedia(
     user_agent="MyProjectName (merlin@example.com)",
